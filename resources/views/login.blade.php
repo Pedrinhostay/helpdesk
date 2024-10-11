@@ -19,8 +19,8 @@
                             @csrf
                             <div class="mb-3">
                                 <label for="text_username" class="form-label">E-mail</label>
-                                <input type="text" class="form-control bg-light text-black" name="text_email" value="{{ old('text_email')}}" required>
-                                @error('text_email')
+                                <input type="text" class="form-control bg-light text-black" name="email" value="{{ old('email')}}" required>
+                                @error('email')
                                     <div class="text-danger mt-2">
                                         {{ $message }}
                                     </div>
@@ -28,15 +28,15 @@
                             </div>
                             <div class="mb-3">
                                 <label for="text_password" class="form-label">Password</label>
-                                <input type="password" class="form-control bg-light text-black" name="text_password"  value="{{ old('text_password')}}">
-                                @error('text_password')
+                                <input type="password" class="form-control bg-light text-black" name="password"  value="{{ old('password')}}">
+                                @error('password')
                                     <div class="text-danger mt-2">
                                         {{ $message }}
                                     </div>
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <button type="submit" class="btn btn-success text-light w-100">LOGIN</button>
+                                <button type="submit" class="btn btn-success text-light w-100 btn-outline-dark">LOGIN</button>
                             </div>
                         </form>
                         @if (session('ErrorLogin'))

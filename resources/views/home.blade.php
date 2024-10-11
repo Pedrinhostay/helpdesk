@@ -19,12 +19,12 @@
                 </div>
 
                 @else
-
                     <div class="d-flex justify-content-end mb-3">
                         <a href="{{ route('newTicket')}}" class="btn btn-secondary px-3">
                             <i class="fa-regular fa-pen-to-square me-2"></i>New Note
                         </a>
                     </div>
+                    <h1 class="mb-4">Lista de Tickets</h1>
                     @foreach ($tickets as $ticket)
                     @include('tickets.index')
                     @endforeach

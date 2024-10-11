@@ -18,7 +18,7 @@ class CheckingLogin
         if(!session('user')){
             return redirect('/login');
         };
-       
+
 
         return $next($request);
     }

@@ -1,13 +1,5 @@
 
-<h1 class="mb-4">Lista de Tickets</h1>
-
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    <div class="row">
+    <div class="row mt-1">
         <div class="col">
             <div class="card p-4">
                 <div class="row">

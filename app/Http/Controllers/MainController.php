@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -17,6 +18,26 @@ class MainController extends Controller
     }
 
     public function newTickets(){
-        echo "Vamos criar um novo ticket";
+        return view('tickets.create');
+    }
+
+    public function store(Request $request)
+    {
+        // Valida os dados do ticket
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+        ]);
+
+        $userId = session('user')['id'];
+        // Cria um novo ticket
+        Ticket::create([
+            'title' => $validated['title'],
+            'description' => $validated['description'],
+            'user_id' => $userId,// se estiver usando autenticação
+            'status' => 'open', // status inicial do ticket
+        ]);
+
+        return redirect()->route('home')->with('success', 'Ticket criado com sucesso!');
     }
 }

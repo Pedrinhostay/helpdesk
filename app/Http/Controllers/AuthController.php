@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -16,41 +17,25 @@ class AuthController extends Controller
 
     // form validation
 
-    $request->validate(
-        [
-            'text_email' => 'required',
-            'text_password' => 'required|min:8'
-        ],
-        [
-            'text_email.required' => 'O username é obrigatório',
-            'text_email.required' => 'Username deve ser um e-mail válido',
-            'text_password.required' => 'A password é obrigatório',
-            'text_password.min' => 'A password precisa conter no minimo :min caracteres'
-        ]
-    );
+    $validated = $request->validate([
+        'email' => 'required|email|exists:users,email',
+        'password' => 'required|string|min:8',
+    ], [
+        'email.required' => 'Por favor, insira seu e-mail.',
+        'email.email' => 'O e-mail deve ser um endereço de e-mail válido.',
+        'email.exists' => 'Este e-mail não está registrado.',
+        'password.required' => 'Por favor, insira sua senha.',
+        'password.min' => 'A senha deve conter pelo menos 8 caracteres.',
+    ]);
 
-    $email = $request->input('text_email');
-    $password = $request->input('text_password');
+    $user = User::where('email', $validated['email'])->first();
 
-    //test database connection
-    $user = User::where('email', $email)->first();
-
-    if(!$user){
-        return redirect()->back()->withInput()->with('ErrorLogin', 'E-mail ou senha incorretos');
+    if ($user && Hash::check($validated['password'], $user->password)) {
+        session(['user' => $user]);
+        return redirect('/');
     }
 
-    if(!password_verify($password, $user->password)){
-        return redirect()->back()->withInput()->with('ErrorLogin', 'E-mail ou senha incorretos');
-    }
-
-    session([
-        'user' => [
-            'id' => $user->id,
-            'name' => $user->name
-        ]
-        ]);
-
-    return redirect()->to('/');
+    return back()->withErrors(['email' => 'As credenciais informadas estão incorretas.']);
    }
 
    public function logout ()
