@@ -35,7 +35,7 @@ class AuthController extends Controller
         return redirect('/');
     }
 
-    return back()->withErrors(['email' => 'As credenciais informadas estão incorretas.']);
+    return back()->withErrors(['login_error' => 'As credenciais informadas estão incorretas.']);
    }
 
    public function logout ()

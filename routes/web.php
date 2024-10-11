@@ -20,6 +20,8 @@ Route::middleware([CheckingLogin::class])->group(function(){
     Route::get('/', [MainController::class , 'index'])->name('home');
     Route::get('/newTicket', [MainController::class , 'newTickets'])->name('newTicket');
     Route::post('/store', [MainController::class, 'store'])->name('storeTicket');
+    Route::delete('/ticket/{id}', [MainController::class, 'destroy'])->name('ticket.destroy');
     Route::get('/logout', [AuthController::class , 'Logout'])->name('logout');
 
 });
+

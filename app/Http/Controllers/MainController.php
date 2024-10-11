@@ -16,7 +16,7 @@ class MainController extends Controller
 
         return view('home', ['tickets' => $tickets]);
     }
-
+    
     public function newTickets(){
         return view('tickets.create');
     }
@@ -39,5 +39,18 @@ class MainController extends Controller
         ]);
 
         return redirect()->route('home')->with('success', 'Ticket criado com sucesso!');
+    }
+
+    public function destroy($id)
+    {
+        // Encontrar o ticket pelo ID e deletá-lo
+        $ticket = Ticket::find($id);
+
+        if ($ticket) {
+            $ticket->delete();
+            return redirect()->back()->with('success', 'Ticket deletado com sucesso!');
+        }
+
+        return redirect()->back()->withErrors(['msg' => 'Ticket não encontrado.']);
     }
 }
