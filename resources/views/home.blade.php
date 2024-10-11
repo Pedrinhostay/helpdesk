@@ -7,7 +7,6 @@
 
                 @include('top_header')
 
-                <!-- no notes available -->
                 @if (count($tickets) == 0)
                 <div class="row mt-5">
                     <div class="col text-center">
@@ -31,8 +30,6 @@
 
                 @endif
 
-
-                <!-- notes are available -->
             </div>
         </div>
     </div>

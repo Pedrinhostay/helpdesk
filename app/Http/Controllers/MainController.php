@@ -16,7 +16,7 @@ class MainController extends Controller
 
         return view('home', ['tickets' => $tickets]);
     }
-    
+
     public function newTickets(){
         return view('tickets.create');
     }
@@ -34,8 +34,8 @@ class MainController extends Controller
         Ticket::create([
             'title' => $validated['title'],
             'description' => $validated['description'],
-            'user_id' => $userId,// se estiver usando autenticação
-            'status' => 'open', // status inicial do ticket
+            'user_id' => $userId,
+            'status' => 'open',
         ]);
 
         return redirect()->route('home')->with('success', 'Ticket criado com sucesso!');
@@ -43,7 +43,6 @@ class MainController extends Controller
 
     public function destroy($id)
     {
-        // Encontrar o ticket pelo ID e deletá-lo
         $ticket = Ticket::find($id);
 
         if ($ticket) {
