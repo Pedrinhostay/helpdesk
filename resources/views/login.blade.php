@@ -19,8 +19,8 @@
                             @csrf
                             <div class="mb-3">
                                 <label for="text_username" class="form-label">E-mail</label>
-                                <input type="text" class="form-control bg-light text-black" name="text_username" value="{{ old('text_username')}}" required>
-                                @error('text_username')
+                                <input type="text" class="form-control bg-light text-black" name="text_email" value="{{ old('text_email')}}" required>
+                                @error('text_email')
                                     <div class="text-danger mt-2">
                                         {{ $message }}
                                     </div>
@@ -39,6 +39,9 @@
                                 <button type="submit" class="btn btn-success text-light w-100">LOGIN</button>
                             </div>
                         </form>
+                        @if (session('ErrorLogin'))
+                            <div class="alert alert-danger text-light">{{ session('ErrorLogin') }}</div>
+                        @endif
                     </div>
                 </div>
 
